@@ -119,10 +119,10 @@ class _HomeState extends State<Home> {
           children: [
             SizedBox(
               width: double.infinity,
-              height: 360.0,
+              //height: 360.0,
               child: Container(
                 width: double.infinity,
-                height: 350.0,
+                //height: 350.0,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.zero,
@@ -140,7 +140,7 @@ class _HomeState extends State<Home> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      //name and location
+                      //top buttons
                       Row(
                         children: [
                           Expanded(
@@ -170,10 +170,12 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-                      //image list
+                      //iamges
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          //main image
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,45 +194,27 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
+                          //image list
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
                                 width: 75.0,
-                                height: 360.0,
+                                height: 300.0,
                                 child: ListView.builder(
                                   scrollDirection: Axis.vertical,
                                   itemCount: city.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 5.0, 0, 5.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            cityIndex = index;
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 75.0,
-                                          height: 75.0,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.white,
-                                                width: 3.0),
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  'assets/images/${city[index].image!}'),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          child: Text(''),
-                                        ),
-                                      ),
+                                    return ImageListItem(
+                                      imageName:
+                                          'assets/images/${city[index].image!}',
+                                      onPress: () {
+                                        setState(() {
+                                          cityIndex = index;
+                                        });
+                                      },
                                     );
                                   },
                                 ),
@@ -305,6 +289,40 @@ class _HomeState extends State<Home> {
   }
 }
 
+class ImageListItem extends StatelessWidget {
+  const ImageListItem({
+    required this.imageName,
+    required this.onPress,
+    Key? key,
+  }) : super(key: key);
+
+  final String imageName;
+  final onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
+      child: GestureDetector(
+        onTap: onPress,
+        child: Container(
+          width: 75.0,
+          height: 75.0,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 5.0),
+            borderRadius: BorderRadius.circular(25.0),
+            image: DecorationImage(
+              image: AssetImage(imageName),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Text(''),
+        ),
+      ),
+    );
+  }
+}
+
 class InfoBox extends StatelessWidget {
   const InfoBox({
     required this.title,
@@ -336,15 +354,6 @@ class InfoBox extends StatelessWidget {
       ),
     );
   }
-}
-
-void showSnakBar(BuildContext context, String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      duration: const Duration(milliseconds: 500),
-      content: Text(message),
-    ),
-  );
 }
 
 class CityInfo {
