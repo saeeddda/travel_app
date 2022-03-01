@@ -1,115 +1,370 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TravelApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TravelApp extends StatelessWidget {
+  const TravelApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      home: const Home(),
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            color: Colors.black,
+            fontSize: 12.0,
+            fontWeight: FontWeight.w300,
+          ),
+          headline2: TextStyle(
+            color: Color.fromARGB(255, 120, 202, 222),
+            fontSize: 19.0,
+            fontWeight: FontWeight.w500,
+          ),
+          headline3: TextStyle(
+            color: Colors.black,
+            fontSize: 30.0,
+            fontWeight: FontWeight.w700,
+          ),
+          headline4: TextStyle(
+            color: Colors.white,
+            fontSize: 26.0,
+            fontWeight: FontWeight.w400,
+          ),
+          headline5: TextStyle(
+            color: Colors.white,
+            fontSize: 13.0,
+            fontWeight: FontWeight.w400,
+          ),
+          bodyText1: TextStyle(
+            color: Colors.black,
+            fontSize: 14.0,
+            fontWeight: FontWeight.w600,
+          ),
+          bodyText2: TextStyle(
+            color: Colors.black,
+            fontSize: 12.0,
+            fontWeight: FontWeight.w400,
+            height: 1.5,
+          ),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class _HomeState extends State<Home> {
+  List<CityInfo> city = [
+    CityInfo(
+        name: 'Nasir al-Mulk',
+        location: 'Shiraz, Iran',
+        image: 'shiraz-1.jpg',
+        distance: '10 km',
+        temp: '15 C',
+        rating: '4.9',
+        description:
+            'The Nasir al-Mulk Mosque (Persian: مسجد نصیر الملک Masjed-e Nasir ol-Molk), also known as the Pink Mosque (مسجد صورتی Masjed-e Surati), is a traditional mosque in Shiraz, Iran. It is located near Shāh Chérāgh Mosque. It was built during Qajar dynasty rule of Iran.',
+        price: '165'),
+    CityInfo(
+        name: 'Persepolis',
+        location: 'Shiraz, Iran',
+        image: 'shiraz-2.jpg',
+        distance: '50 km',
+        temp: '15 C',
+        rating: '4.9',
+        description:
+            'Persepolis (/pərˈsɛpəlɪs/; Old Persian: 𐎱𐎠𐎼𐎿, Pārsa; New Persian: تخت جمشید, romanized: Takht-e Jamshīd, lit. Throne of Jamshid) was the ceremonial capital of the Achaemenid Empire (c. 550–330 BC). It is situated in the plains of Marvdasht, encircled by southern Zagros mountains of Iran.',
+        price: '100'),
+    CityInfo(
+        name: 'Eram Garden',
+        location: 'Shiraz, Iran',
+        image: 'shiraz-3.jpg',
+        distance: '30 km',
+        temp: '15 C',
+        rating: '4.9',
+        description:
+            'Eram Garden (Persian: باغ ارم, Bāgh-e Eram) is a historic Persian garden in Shiraz, Iran. The garden, and the building within it, are located at the northern shore of the Khoshk River in the Fars province.',
+        price: '140'),
+    CityInfo(
+        name: 'Hafezieh',
+        location: 'Shiraz, Iran',
+        image: 'shiraz-4.jpg',
+        distance: '15 km',
+        temp: '15 C',
+        rating: '4.9',
+        description:
+            'The Tomb of Hafez (Persian: آرامگاه حافظ), commonly known as Hāfezieh (حافظیه), are two memorial structures erected in the northern edge of Shiraz, Iran, in memory of the celebrated Persian poet Hafez.',
+        price: '120'),
+  ];
+  int cityIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 360.0,
+              child: Container(
+                width: double.infinity,
+                height: 350.0,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.zero,
+                      topRight: Radius.zero,
+                      bottomLeft: Radius.circular(50.0),
+                      bottomRight: Radius.circular(50.0)),
+                  image: DecorationImage(
+                    image:
+                        AssetImage('assets/images/${city[cityIndex].image!}'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //name and location
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white54,
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(CupertinoIcons.back),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white54,
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(CupertinoIcons.heart),
+                            ),
+                          ),
+                        ],
+                      ),
+                      //image list
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(city[cityIndex].name!,
+                                  style: Theme.of(context).textTheme.headline4),
+                              Row(
+                                children: [
+                                  const Icon(CupertinoIcons.location_solid,
+                                      color: Colors.white),
+                                  Text(city[cityIndex].location!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 75.0,
+                                height: 360.0,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: city.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 5.0, 0, 5.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            cityIndex = index;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 75.0,
+                                          height: 75.0,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.white,
+                                                width: 3.0),
+                                            borderRadius:
+                                                BorderRadius.circular(25.0),
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/${city[index].image!}'),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          child: Text(''),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            //content
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InfoBox(
+                          title: 'Distance', value: city[cityIndex].distance!),
+                      InfoBox(title: 'Temp', value: city[cityIndex].temp!),
+                      InfoBox(title: 'Raing', value: city[cityIndex].rating!),
+                    ],
+                  ),
+                  const SizedBox(height: 20.0),
+                  Text('Description',
+                      style: Theme.of(context).textTheme.bodyText1),
+                  Text(city[cityIndex].description!,
+                      style: Theme.of(context).textTheme.bodyText2),
+                  const SizedBox(height: 10.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text('Total Price',
+                              style: Theme.of(context).textTheme.bodyText2),
+                          Text('\$ ${city[cityIndex].price!}',
+                              style: Theme.of(context).textTheme.headline3),
+                        ],
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          fixedSize:
+                              MaterialStateProperty.all(const Size(80.0, 80.0)),
+                          elevation: MaterialStateProperty.all(0.0),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.black),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0))),
+                        ),
+                        onPressed: () {},
+                        child: const Icon(CupertinoIcons.right_chevron),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class InfoBox extends StatelessWidget {
+  const InfoBox({
+    required this.title,
+    required this.value,
+    Key? key,
+  }) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 85.0,
+      height: 85.0,
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black26,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(26.0)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.headline1),
+          const SizedBox(height: 8.0),
+          Text(value, style: Theme.of(context).textTheme.headline2),
+        ],
+      ),
+    );
+  }
+}
+
+void showSnakBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      duration: const Duration(milliseconds: 500),
+      content: Text(message),
+    ),
+  );
+}
+
+class CityInfo {
+  String? name;
+  String? location;
+  String? image;
+  String? distance;
+  String? temp;
+  String? rating;
+  String? description;
+  String? price;
+
+  CityInfo({
+    required this.name,
+    required this.location,
+    required this.image,
+    required this.distance,
+    required this.temp,
+    required this.rating,
+    required this.description,
+    required this.price,
+  });
 }
