@@ -4,4 +4,6 @@
 *.c linguist-detectable=false
 *.html linguist-detectable=false
 *.cmake linguist-detectable=false
+*.txt linguist-detectable=false
 *.swift linguist-detectable=false
+*.kt linguist-detectable=false
