@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'models/CityInfo.dart';
+
 void main() {
   runApp(const TravelApp());
 }
@@ -119,167 +121,180 @@ class _HomeState extends State<Home> {
           children: [
             SizedBox(
               width: double.infinity,
-              //height: 360.0,
-              child: Container(
-                width: double.infinity,
-                //height: 350.0,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.zero,
-                      topRight: Radius.zero,
-                      bottomLeft: Radius.circular(50.0),
-                      bottomRight: Radius.circular(50.0)),
-                  image: DecorationImage(
-                    image:
-                        AssetImage('assets/images/${city[cityIndex].image!}'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //top buttons
-                      Row(
+              child: Stack(
+                alignment: Alignment.topLeft,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 350.0,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.zero,
+                        bottomLeft: Radius.circular(50.0),
+                        bottomRight: Radius.circular(50.0),
+                      ),
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/${city[cityIndex].image!}',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
                         children: [
+                          Row(children: [
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white54,
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(CupertinoIcons.back),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white54,
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(CupertinoIcons.heart),
+                              ),
+                            ),
+                          ]),
                           Expanded(
                             child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white54,
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(CupertinoIcons.back),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white54,
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(CupertinoIcons.heart),
-                            ),
-                          ),
-                        ],
-                      ),
-                      //iamges
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          //main image
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(city[cityIndex].name!,
-                                  style: Theme.of(context).textTheme.headline4),
-                              Row(
+                              alignment: Alignment.bottomLeft,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Icon(CupertinoIcons.location_solid,
-                                      color: Colors.white),
-                                  Text(city[cityIndex].location!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5),
+                                  Text(
+                                    city[cityIndex].name!,
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        CupertinoIcons.location_solid,
+                                        color: Colors.white,
+                                      ),
+                                      Text(
+                                        city[cityIndex].location!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
-                          //image list
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 75.0,
-                                height: 300.0,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: city.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ImageListItem(
-                                      imageName:
-                                          'assets/images/${city[index].image!}',
-                                      onPress: () {
-                                        setState(() {
-                                          cityIndex = index;
-                                        });
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 80.0, 20.0, 0),
+                      child: SizedBox(
+                        width: 75.0,
+                        height: 330.0,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: city.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ImageListItem(
+                              imageName: 'assets/images/${city[index].image!}',
+                              onPress: () {
+                                setState(() {
+                                  cityIndex = index;
+                                });
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          InfoBox(
+                              title: 'Distance',
+                              value: city[cityIndex].distance!),
+                          InfoBox(title: 'Temp', value: city[cityIndex].temp!),
+                          InfoBox(
+                              title: 'Raing', value: city[cityIndex].rating!),
+                        ],
+                      ),
+                      const SizedBox(height: 20.0),
+                      Text('Description',
+                          style: Theme.of(context).textTheme.bodyText1),
+                      Text(city[cityIndex].description!,
+                          style: Theme.of(context).textTheme.bodyText2),
                     ],
                   ),
                 ),
               ),
             ),
-            //content
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InfoBox(
-                          title: 'Distance', value: city[cityIndex].distance!),
-                      InfoBox(title: 'Temp', value: city[cityIndex].temp!),
-                      InfoBox(title: 'Raing', value: city[cityIndex].rating!),
-                    ],
-                  ),
-                  const SizedBox(height: 20.0),
-                  Text('Description',
-                      style: Theme.of(context).textTheme.bodyText1),
-                  Text(city[cityIndex].description!,
-                      style: Theme.of(context).textTheme.bodyText2),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text('Total Price',
-                              style: Theme.of(context).textTheme.bodyText2),
-                          Text('\$ ${city[cityIndex].price!}',
-                              style: Theme.of(context).textTheme.headline3),
-                        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text('Total Price',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        Text('\$ ${city[cityIndex].price!}',
+                            style: Theme.of(context).textTheme.headline3),
+                      ],
+                    ),
+                    TextButton(
+                      style: ButtonStyle(
+                        fixedSize:
+                            MaterialStateProperty.all(const Size(80.0, 80.0)),
+                        elevation: MaterialStateProperty.all(0.0),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0))),
                       ),
-                      TextButton(
-                        style: ButtonStyle(
-                          fixedSize:
-                              MaterialStateProperty.all(const Size(80.0, 80.0)),
-                          elevation: MaterialStateProperty.all(0.0),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100.0))),
-                        ),
-                        onPressed: () {},
-                        child: const Icon(CupertinoIcons.right_chevron),
-                      ),
-                    ],
-                  ),
-                ],
+                      onPressed: () {},
+                      child: const Icon(CupertinoIcons.right_chevron),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -306,17 +321,19 @@ class ImageListItem extends StatelessWidget {
       child: GestureDetector(
         onTap: onPress,
         child: Container(
-          width: 75.0,
-          height: 75.0,
+          width: 70.0,
+          height: 70.0,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 5.0),
-            borderRadius: BorderRadius.circular(25.0),
+            border: Border.all(
+              width: 4.0,
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.circular(20.0),
             image: DecorationImage(
               image: AssetImage(imageName),
               fit: BoxFit.cover,
             ),
           ),
-          child: Text(''),
         ),
       ),
     );
@@ -354,26 +371,4 @@ class InfoBox extends StatelessWidget {
       ),
     );
   }
-}
-
-class CityInfo {
-  String? name;
-  String? location;
-  String? image;
-  String? distance;
-  String? temp;
-  String? rating;
-  String? description;
-  String? price;
-
-  CityInfo({
-    required this.name,
-    required this.location,
-    required this.image,
-    required this.distance,
-    required this.temp,
-    required this.rating,
-    required this.description,
-    required this.price,
-  });
 }
