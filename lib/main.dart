@@ -215,6 +215,7 @@ class _HomeState extends State<Home> {
                         height: 330.0,
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
                           itemCount: city.length,
                           itemBuilder: (BuildContext context, int index) {
                             return ImageListItem(
